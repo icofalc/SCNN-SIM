@@ -4,9 +4,10 @@ from keras.applications.vgg19 import preprocess_input
 from keras.models import Model
 import numpy as np
 import matplotlib.pyplot as plt
+import os
 from pylab import *
 
-
+#https://github.com/hujb48/SCNN-SIM
 
 def get_row_col(num_pic):
     squr = num_pic ** 0.5
@@ -31,14 +32,14 @@ def visualize_feature_map(img_batch):
         plt.imshow(feature_map_split,cmap='gray')
         axis('off')
 
-    plt.savefig('D:/file_hjb/TID2013/Gnoise/output333/features/5-outputs/block1/pool/5-outputs_feature_map.png')
+    plt.savefig("prova.png")
     plt.show()
 
     # 各个特征图按1：1 叠加
     feature_map_sum = sum(ele for ele in feature_map_combination)
     #plt.imshow(feature_map_sum,cmap='gray')
     #axis('off')
-    plt.imsave(save_path,feature_map_sum,cmap=cm.gray)
+    plt.imsave(os.getcwd(),feature_map_sum,cmap=cm.gray)
     plt.show()
 
 if __name__ == "__main__":
@@ -49,7 +50,7 @@ if __name__ == "__main__":
     # model = Model(inputs=base_model.input, outputs=base_model.get_layer('block4_pool').output)
     model = Model(inputs=base_model.input, outputs=base_model.get_layer('block1_pool').output)
 
-    img_path = 'D:/file_hjb/TID2013/Gnoise/output333/images/5-inputs.png'
+    img_path = 'ILSVRC2012_val_00000083.JPEG'
     img = image.load_img(img_path)
     x = image.img_to_array(img)
     x = np.expand_dims(x, axis=0)
